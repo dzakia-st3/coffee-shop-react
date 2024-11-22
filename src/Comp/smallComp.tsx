@@ -5,7 +5,7 @@ interface PropsType {
     info?: string;
     onclick?: any;
     text?: string;
-    style?: string;
+    style?: string
 }
 
 const ButtonBrown = ({ info, onclick }: Readonly<PropsType>) => {
@@ -29,6 +29,12 @@ const GoogleButton = ({ info }: Readonly<PropsType>) => {
     )
 }
 
+const ButtonBrownBorder = ({ info }: Readonly<PropsType>) => {
+    return (
+        <button className="font-rubik hover:bg-[#FFBA33] font-semibold text-[#6A4029] px-6 py-2 rounded-sm tracking-wide">{info}</button>
+    )
+}
+
 const InputText = ({ info }: Readonly<PropsType>) => {
     return (
         <input className='border font-rubik border-solid border-[#4F5665] p-3 rounded-sm' placeholder={info} type="text" />
@@ -41,4 +47,4 @@ const Text = ({ text, style }: Readonly<PropsType>) => {
     )
 }
 
-export { ButtonBrown, ButtonYellow, InputText, Text, GoogleButton }
+export { ButtonBrown, ButtonYellow, InputText, Text, GoogleButton, ButtonBrownBorder }
