@@ -31,7 +31,7 @@ const GoogleButton = ({ info }: Readonly<PropsType>) => {
 
 const ButtonBrownBorder = ({ info }: Readonly<PropsType>) => {
     return (
-        <button className="font-rubik hover:bg-[#FFBA33] font-semibold text-[#6A4029] px-6 py-2 rounded-sm tracking-wide">{info}</button>
+        <button className="font-rubik border border-[#FFBA33] hover:bg-[#FFBA33] font-bold text-[#6A4029] px-6 py-2 rounded-sm tracking-wide">{info}</button>
     )
 }
 

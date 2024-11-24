@@ -8,13 +8,13 @@ import check from '../image/ceklis.png'
 import check2 from '../image/ceklis2.png'
 import banner2 from '../image/coverHero2.png'
 import hazelnut from '../image/hazelnut.png'
+import pinky from '../image/pinkyPromise.png'
+import chicken from '../image/chickenWings.png'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Scrollbar, A11y, Virtual } from 'swiper/modules'
+import { EffectCoverflow, Pagination } from 'swiper/modules'
 import 'swiper/css'
-import 'swiper/css/navigation'
+import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
-import 'swiper/css/bundle'
 
 
 const Home = () => {
@@ -128,58 +128,180 @@ const Home = () => {
                         text="Let's choose and have a bit taste of people's favorite. It might be yours too!"
                         style='text-slate-900'
                     />
-
-                    <div className='flex flex-col items-center'>
-                        <img src={hazelnut} className='absolute rounded rounded-full z-10' alt="" />
-                        <div className='relative bg-slate-400 h-80 top-14'>
-                            <Text
-                                text="Hazelnut Latte"
-                                style='font-bold tracking-wider text-center'
-                            />
-                            <div className='flex items-center'>
-                                <img src={check2} alt="check" />
-                                <Text
-                                    text='Hazelnut Syrup'
-                                    style='pl-3 text-slate-900'
-                                />
-                            </div>
-                            <div className='flex items-center'>
-                                <img src={check2} alt="check" />
-                                <Text
-                                    text='Vanilla Whipped Cream'
-                                    style='pl-3 text-slate-900'
-                                />
-                            </div>
-                            <div className='flex items-center'>
-                                <img src={check2} alt="check" />
-                                <Text
-                                    text='Ice / Hot'
-                                    style='pl-3 text-slate-900'
-                                />
-                            </div>
-                            <div className='flex items-center'>
-                                <img src={check2} alt="check" />
-                                <Text
-                                    text='Sliced Banana on Top'
-                                    style='pl-3 text-slate-900'
-                                />
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <Swiper
-                    modules={[Navigation]}
-                    spaceBetween={50}
-                    slidesPerView={3}
-                    navigation
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper: any) => console.log(swiper)}
+                    effect={'coverflow'}
+                    grabCursor={true}
+                    centeredSlides={true}
+                    slidesPerView={'auto'}
+                    coverflowEffect={{
+                        rotate: 50,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: true
+                    }}
+                    pagination={true}
+                    modules={[EffectCoverflow, Pagination]}
+                    className='mySwiper'
                 >
-                    <SwiperSlide>Slide 1</SwiperSlide>
-                    <SwiperSlide>Slide 2</SwiperSlide>
-                    <SwiperSlide>Slide 3</SwiperSlide>
-                    <SwiperSlide>Slide 4</SwiperSlide>
+                    <SwiperSlide>
+                        <div className='flex flex-col items-center'>
+                            <img src={hazelnut} className='absolute rounded rounded-full z-10' alt="" />
+                            <div className='relative top-14 h-full flex flex-col items-center border border-2 border-[#DDDDDD] hover:border-[#6A4029] rounded-md px-6 py-10 justify-center'>
+                                <div className='pt-14 pb-10 flex flex-col gap-2'>
+                                    <Text
+                                        text="Hazelnut Latte"
+                                        style='font-bold text-xl pb-2 tracking-wider text-center'
+                                    />
+                                    <div className='flex items-center'>
+                                        <img src={check2} alt="check" />
+                                        <Text
+                                            text='Hazelnut Syrup'
+                                            style='pl-3 text-slate-900'
+                                        />
+                                    </div>
+                                    <div className='flex items-center'>
+                                        <img src={check2} alt="check" />
+                                        <Text
+                                            text='Vanilla Whipped Cream'
+                                            style='pl-3 text-slate-900'
+                                        />
+                                    </div>
+                                    <div className='flex items-center'>
+                                        <img src={check2} alt="check" />
+                                        <Text
+                                            text='Ice / Hot'
+                                            style='pl-3 text-slate-900'
+                                        />
+                                    </div>
+                                    <div className='flex items-center'>
+                                        <img src={check2} alt="check" />
+                                        <Text
+                                            text='Sliced Banana on Top'
+                                            style='pl-3 text-slate-900'
+                                        />
+                                    </div>
+                                </div>
+                                <Text
+                                    text='IDR 25.000'
+                                    style='pb-5  font-bold text-xl text-black'
+                                />
+                                <ButtonBrownBorder info='Select' />
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide><div className='flex flex-col items-center'>
+                        <img src={pinky} className='absolute rounded rounded-full z-10' alt="" />
+                        <div className='relative top-14 h-full flex flex-col items-center border border-2 border-[#DDDDDD] hover:border-[#6A4029] rounded-md p-6  justify-center'>
+                            <div className='pt-16 pb-10 flex flex-col gap-2'>
+                                <Text
+                                    text="Pinky Promise"
+                                    style='font-bold text-xl pb-2 tracking-wider text-center'
+                                />
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='1 Shot of Coffee'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Vanilla Whipped Cream'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Chocolate Biscuits'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Strawberry Syrup'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Sliced Strawberry on Top'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                            </div>
+                            <Text
+                                text='IDR 30.000'
+                                style='pb-5  font-bold text-xl text-black'
+                            />
+                            <ButtonBrownBorder info='Select' />
+                        </div>
+                    </div></SwiperSlide>
+                    <SwiperSlide><div className='flex flex-col items-center'>
+                        <img src={chicken} className='absolute rounded rounded-full z-10' alt="" />
+                        <div className='relative top-14 h-full flex flex-col items-center border border-2 border-[#DDDDDD] hover:border-[#6A4029] rounded-md p-6 justify-center'>
+                            <div className='pt-16 pb-7 flex flex-col gap-1'>
+                                <Text
+                                    text="Chicken Wings"
+                                    style='font-bold text-xl pb-2 tracking-wider text-center'
+                                />
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Wings'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Drum Sticks'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Mayonaise and Lemon'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Hot Fried'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Secret Recipe'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <img src={check2} alt="check" />
+                                    <Text
+                                        text='Buy 1 Get 1 only for Dine In'
+                                        style='pl-3 text-slate-900'
+                                    />
+                                </div>
+                            </div>
+                            <Text
+                                text='IDR 40.000'
+                                style='pb-5  font-bold text-xl text-black'
+                            />
+                            <ButtonBrownBorder info='Select' />
+                        </div>
+                    </div></SwiperSlide>
                 </Swiper>
+                <div className='h-40'></div>
             </div>
         </>
     )
