@@ -8,15 +8,15 @@ interface PropsType {
     style?: string
 }
 
-const ButtonBrown = ({ info, onclick }: Readonly<PropsType>) => {
+const ButtonBrown = ({ info, onclick, style }: Readonly<PropsType>) => {
     return (
-        <button className="bg-[#6A4029] font-rubik hover:bg-opacity-90 text-white font-semibold px-6 py-1 rounded-md tracking-wide" onClick={onclick}>{info}</button>
+        <button className={`bg-[#6A4029] font-rubik hover:bg-opacity-90 text-white font-semibold px-6 py-1 rounded-md tracking-wide ${style}`} onClick={onclick}>{info}</button>
     )
 }
 
-const ButtonYellow = ({ info, onclick }: Readonly<PropsType>) => {
+const ButtonYellow = ({ info, onclick, style }: Readonly<PropsType>) => {
     return (
-        <button className='bg-[#FFBA33] font-rubik hover:bg-opacity-80 text-[#6A4029] font-semibold px-6 py-2 rounded-md tracking-wide' onClick={onclick}>{info}</button>
+        <button className={`bg-[#FFBA33] font-rubik hover:bg-opacity-80 text-[#6A4029] font-semibold px-6 py-2 rounded-md tracking-wide ${style}`} onClick={onclick}>{info}</button>
     )
 }
 
@@ -29,7 +29,7 @@ const GoogleButton = ({ info }: Readonly<PropsType>) => {
     )
 }
 
-const ButtonBrownBorder = ({ info }: Readonly<PropsType>) => {
+const ButtonBrownBorder = ({ info, style }: Readonly<PropsType>) => {
     return (
         <button className="font-rubik border border-[#FFBA33] hover:bg-[#FFBA33] font-bold text-[#6A4029] px-6 py-2 rounded-md tracking-wide">{info}</button>
     )
