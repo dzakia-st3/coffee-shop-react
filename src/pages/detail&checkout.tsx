@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navbar, Footer } from '../Comp/mediumComp'
 import { Text, ButtonBrown, ButtonYellow } from '../Comp/smallComp'
 import sample from '../image/hazelnutlatte.png'
+import { getValue } from '@testing-library/user-event/dist/utils'
 
 const DetailAndCheckout = () => {
     const [count, setCount] = useState(0)
@@ -35,7 +36,14 @@ const DetailAndCheckout = () => {
                     <div className='flex items-center'>
                         <div className="py-3 text-md font-['rubik']">
                             <button className='font-bold text-xl p-3 bg-transparent border-0 border-b-2 border-gray-500 hover:bg-gray-400 rounded-t-md' onClick={() => count == 0 ? setCount(0) : setCount(count - 1)}>-</button>
-                            <input aria-label='count' className='w-1/3 p-3 bg-transparent border-0 border-b-2 border-gray-500 text-center placeholder:text-black' placeholder={`${count}`} type="text" />
+                            <input
+                                aria-label='count'
+                                className='w-1/3 p-3 bg-transparent border-0 border-b-2 border-gray-500 text-center placeholder:text-black'
+                                placeholder='0'
+                                value={count}
+                                onInput={(e: any) => setCount(Number(e.target.value))}
+                                type="text"
+                            />
                             <button className='font-bold text-xl p-3 bg-transparent border-0 border-b-2 border-gray-500 hover:bg-gray-400 rounded-t-md' onClick={() => setCount(count + 1)}>+</button>
                         </div>
                         <ButtonYellow info='Add to Cart' style='w-full py-2' />

@@ -154,26 +154,26 @@ const Navbar = () => {
                 <div className='hidden md:flex md:gap-4'>
                     <Text
                         text='Home'
-                        style='text-gray-500 hover:text-[#6A4029] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
                     />
                     <Text
                         text='Product'
-                        style='text-gray-500 hover:text-[#6A4029] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
                     />
                     <Text
                         text='Your Cart'
-                        style='text-gray-500 hover:text-[#6A4029] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
                     />
                     <Text
                         text='History'
-                        style='text-gray-500 hover:text-[#6A4029] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
                     />
                 </div>
                 <div className='hidden md:flex md:gap-2'>
                     <ButtonBrown info='Log In' />
                     <ButtonYellow info='Sign Up' />
                 </div>
-                <a href="javascript:void(0);" onClick={HamMenuOnClick} className={navbarColor ? "text-[#6A4029] md:hidden" : "md:hidden"}>
+                <a href="javascript:void(0);" onClick={HamMenuOnClick} className={navbarColor ? "text-[#362115] md:hidden" : "md:hidden"}>
                     <i className="fa fa-bars"></i>
                 </a>
             </div>
