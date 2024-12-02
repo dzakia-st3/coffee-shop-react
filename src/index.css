@@ -31,6 +31,16 @@ code {
   width: 40vh;
 }
 
+.select-type option {
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
+}
+
+.select-type option:hover {
+  background-color: #362115;
+}
+
 @media only screen and (min-width: 600px) {
   .menuSwiper {
     height: 80vh;

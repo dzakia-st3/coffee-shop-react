@@ -35,9 +35,9 @@ const ButtonBrownBorder = ({ info, style }: Readonly<PropsType>) => {
     )
 }
 
-const InputText = ({ info }: Readonly<PropsType>) => {
+const InputText = ({ info, style }: Readonly<PropsType>) => {
     return (
-        <input className='border text-xs font-rubik border-solid border-[#4F5665] p-3 rounded-md' placeholder={info} type="text" />
+        <input className={`border text-xs font-rubik border-solid border-[#4F5665] p-3 rounded-md ${style}`} placeholder={info} type="text" />
     )
 }
 
