@@ -5,7 +5,8 @@ interface PropsType {
     info?: string;
     onclick?: any;
     text?: string;
-    style?: string
+    style?: string;
+    onchange?: any
 }
 
 const ButtonBrown = ({ info, onclick, style }: Readonly<PropsType>) => {
@@ -29,21 +30,21 @@ const GoogleButton = ({ info }: Readonly<PropsType>) => {
     )
 }
 
-const ButtonBrownBorder = ({ info, style }: Readonly<PropsType>) => {
+const ButtonBrownBorder = ({ info, style, onclick }: Readonly<PropsType>) => {
     return (
-        <button className="font-rubik border border-[#FFBA33] hover:bg-[#FFBA33] font-bold text-[#362115] px-6 py-2 rounded-md tracking-wide">{info}</button>
+        <button className="font-rubik border border-[#FFBA33] hover:bg-[#FFBA33] font-bold text-[#362115] px-6 py-2 rounded-md tracking-wide" onClick={onclick}>{info}</button>
     )
 }
 
-const InputText = ({ info, style }: Readonly<PropsType>) => {
+const InputText = ({ info, style, onchange }: Readonly<PropsType>) => {
     return (
-        <input className={`border text-xs font-rubik border-solid border-[#4F5665] p-3 rounded-md ${style}`} placeholder={info} type="text" />
+        <input className={`border text-xs font-rubik border-solid border-[#4F5665] p-3 rounded-md ${style}`} placeholder={info} onChange={onchange} type="text" />
     )
 }
 
-const Text = ({ text, style }: Readonly<PropsType>) => {
+const Text = ({ text, style, onclick }: Readonly<PropsType>) => {
     return (
-        <p className={`font-['rubik'] ${style}`}>{text}</p>
+        <p className={`font-['rubik'] ${style}`} onClick={onclick}>{text}</p>
     )
 }
 

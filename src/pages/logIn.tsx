@@ -1,9 +1,54 @@
 import React from 'react'
-import { Text, InputText, ButtonYellow, GoogleButton } from '../Comp/smallComp'
+import { Text, InputText, ButtonBrown, GoogleButton } from '../Comp/smallComp'
 import { NavbarAuth, FooterAuth } from '../Comp/mediumComp'
 import image1 from '../image/auth.png'
+import { useNavigate } from 'react-router'
+import { Bounce, toast } from 'react-toastify'
 
 const LogIn = () => {
+    const navigate = useNavigate()
+
+    const dt = {
+        email: '',
+        password: ''
+    }
+
+    let dtLocal = localStorage.getItem('a')
+    let getDt = dtLocal ? JSON.parse(dtLocal) : null
+
+    const loginBtn = () => {
+        if (getDt.email == dt.email && atob(getDt.password) == dt.password) {
+            toast("☕ Login successful!", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                theme: 'dark',
+                transition: Bounce
+            });
+
+            navigate('/')
+        } else if (getDt.email != dt.email || atob(getDt.password) != dt.password) {
+            toast.error('Incorrect password or email!', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                theme: 'dark',
+                transition: Bounce,
+            })
+        } else {
+            toast.error('Account not found', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                theme: 'dark',
+                transition: Bounce,
+            })
+        }
+    }
+
     return (
         <div className='md:flex md:items-center md:justify-center md:bg-slate-200 h-screen'>
             <img src={image1} className='hidden md:flex md:w-auto md:h-screen' alt="" />
@@ -18,6 +63,7 @@ const LogIn = () => {
                         />
                         <InputText
                             info='Enter your email address'
+                            onchange={(e: any) => dt.email = e.target.value}
                         />
                     </div>
                     <div className='flex flex-col gap-3'>
@@ -27,9 +73,10 @@ const LogIn = () => {
                         />
                         <InputText
                             info='Enter your password'
+                            onchange={(e: any) => dt.password = e.target.value}
                         />
                     </div>
-                    <ButtonYellow info='Log In' onclick='' />
+                    <ButtonBrown info='Log In' onclick={loginBtn} />
                     <GoogleButton info='Log In with Google' />
                 </div>
                 <FooterAuth />

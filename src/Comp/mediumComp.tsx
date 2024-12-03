@@ -4,22 +4,26 @@ import logo from '../image/coffee 1.png'
 import fb from '../image/facebook.png'
 import twitter from '../image/twitter.png'
 import ig from '../image/instagram.png'
+import { useNavigate } from 'react-router'
+import usericon from '../image/usericon.png'
 
 interface PropsType {
     info?: string
 }
 
 const NavbarAuth = ({ info }: Readonly<PropsType>) => {
+    let navigate = useNavigate()
+
     return (
         <div className='flex justify-between items-center bg-white shadow-md w-full py-2 px-3 sm:px-7'>
-            <div className='flex flex-1 items-center'>
+            <div className='flex flex-1 items-center cursor-pointer' onClick={() => navigate('/')}>
                 <img src={logo} className='h-6' alt="logo" />
                 <Text
                     text='Coffee Shop'
                     style='pl-3 text-black text-base font-bold tracking-wider'
                 />
             </div>
-            <ButtonYellow info={info} onclick='' />
+            <ButtonYellow info={info} onclick={() => navigate(`/${info?.toLowerCase().replace(/ /g, '')}`)} />
         </div>
     )
 }
@@ -122,6 +126,10 @@ const FooterAuth = () => {
 const Navbar = () => {
     const [navbarColor, setNavbarColor] = useState(false)
     const [menuNavMobile, setMenuNavMobile] = useState(false)
+    let navigate = useNavigate()
+
+    let dtLocal = localStorage.getItem('a')
+    let getDt = dtLocal ? JSON.parse(dtLocal) : null
 
     const changeBackground = () => {
         if (window.scrollY > 0) {
@@ -144,7 +152,7 @@ const Navbar = () => {
     return (
         <div className={navbarColor ? "fixed shadow-sm w-full bg-white bg-opacity-60 shadow-md z-20" : "fixed w-full bg-white shadow-sm z-20"}>
             <div className='flex justify-between items-center py-5 px-8'>
-                <div className='flex items-center'>
+                <div className='flex items-center cursor-pointer' onClick={() => navigate('/')}>
                     <img src={logo} className='h-7 w-auto' alt="logo" />
                     <Text
                         text='Coffee Shop'
@@ -154,36 +162,43 @@ const Navbar = () => {
                 <div className='hidden md:flex md:gap-4'>
                     <Text
                         text='Home'
-                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
+                        onclick={() => navigate('/')}
                     />
                     <Text
                         text='Product'
-                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
+                        onclick={() => navigate('/product')}
                     />
                     <Text
                         text='Your Cart'
-                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
+                        onclick={() => navigate('/cart')}
                     />
                     <Text
                         text='History'
-                        style='text-gray-500 hover:text-[#362115] text-base hover:underline'
+                        style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
+                        onclick={() => navigate('/history')}
                     />
                 </div>
                 <div className='hidden md:flex md:gap-2'>
-                    <ButtonBrown info='Log In' />
-                    <ButtonYellow info='Sign Up' />
+                    <div className='bg-white shadow-md flex items-center justify-center shadow-gray-400 rounded-full h-8 w-8 cursor-pointer'>
+                        <img src={usericon} className='h-7' alt="" />
+                    </div>
+                    <ButtonBrown info='Log In' onclick={() => navigate("/login")} />
+                    <ButtonYellow info='Sign Up' onclick={() => navigate("/signup")} />
                 </div>
-                <a href="javascript:void(0);" onClick={HamMenuOnClick} className={navbarColor ? "text-[#362115] md:hidden" : "md:hidden"}>
+                <a href="javascript:void(0);" onClick={HamMenuOnClick} className={navbarColor ? "text-[#362115] md:hidden cursor-pointer" : "md:hidden cursor-pointer"}>
                     <i className="fa fa-bars"></i>
                 </a>
             </div>
             <div className={menuNavMobile ? "z-20 fixed w-full flex flex-col bg-[#6A4029] bg-opacity-95 text-white text-center" : "hidden"}>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" >Home</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" >Product</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" >Your Cart</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" >History</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" >Log In</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" >Sign Up</a>
+                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/')} >Home</a>
+                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/product')}>Product</a>
+                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/cart')}>Your Cart</a>
+                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/history')}>History</a>
+                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/login')}>Log In</a>
+                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/signup')}>Sign Up</a>
             </div>
         </div>
     )
