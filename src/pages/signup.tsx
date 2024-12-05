@@ -11,7 +11,7 @@ const SignUp = () => {
         email: '',
         password: '',
         phone_number: '',
-        is_active: true
+        is_active: false
     })
 
     let getData = localStorage.getItem('a')
@@ -21,13 +21,13 @@ const SignUp = () => {
 
     const signupButton = () => {
         form.password = form.password == '' ? '' : btoa(form.password)
-        localStorage.setItem('a', JSON.stringify(form))
 
-        if (checkData.email == form.email) {
+        if (checkData && checkData.email == form.email && checkData.email != '') {
             toast.error('Account already exists!', {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
+                pauseOnHover: false,
                 closeOnClick: true,
                 theme: 'dark',
                 transition: Bounce,
@@ -37,11 +37,13 @@ const SignUp = () => {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
+                pauseOnHover: false,
                 closeOnClick: true,
                 theme: 'dark',
                 transition: Bounce,
             });
 
+            localStorage.setItem('a', JSON.stringify(form))
             navigate('/login')
         }
     }

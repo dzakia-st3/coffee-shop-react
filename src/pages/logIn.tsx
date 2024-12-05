@@ -17,22 +17,26 @@ const LogIn = () => {
     let getDt = dtLocal ? JSON.parse(dtLocal) : null
 
     const loginBtn = () => {
-        if (getDt.email == dt.email && atob(getDt.password) == dt.password) {
+        if (getDt && getDt.email == dt.email && atob(getDt.password) == dt.password) {
             toast("☕ Login successful!", {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
+                pauseOnHover: false,
                 closeOnClick: true,
                 theme: 'dark',
                 transition: Bounce
             });
 
+            getDt.is_active = true
+            localStorage.setItem('a', JSON.stringify(getDt))
             navigate('/')
-        } else if (getDt.email != dt.email || atob(getDt.password) != dt.password) {
+        } else if ((getDt && getDt.email != dt.email) || (getDt && atob(getDt.password) != dt.password)) {
             toast.error('Incorrect password or email!', {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
+                pauseOnHover: false,
                 closeOnClick: true,
                 theme: 'dark',
                 transition: Bounce,
@@ -41,6 +45,7 @@ const LogIn = () => {
             toast.error('Account not found', {
                 position: "top-right",
                 autoClose: 2000,
+                pauseOnHover: false,
                 hideProgressBar: false,
                 closeOnClick: true,
                 theme: 'dark',

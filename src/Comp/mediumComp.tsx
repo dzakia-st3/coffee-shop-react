@@ -5,7 +5,7 @@ import fb from '../image/facebook.png'
 import twitter from '../image/twitter.png'
 import ig from '../image/instagram.png'
 import { useNavigate } from 'react-router'
-import usericon from '../image/usericon.png'
+import { Bounce, toast } from 'react-toastify'
 
 interface PropsType {
     info?: string
@@ -131,6 +131,9 @@ const Navbar = () => {
     let dtLocal = localStorage.getItem('a')
     let getDt = dtLocal ? JSON.parse(dtLocal) : null
 
+    let dtOrder = localStorage.getItem('b')
+    let getDtOrder = dtOrder ? JSON.parse(dtOrder) : null
+
     const changeBackground = () => {
         if (window.scrollY > 0) {
             setNavbarColor(true)
@@ -149,6 +152,27 @@ const Navbar = () => {
         }
     }
 
+    const logoutBtn = () => {
+        if (window.confirm('Are you sure you want to log out?')) {
+            getDt.is_active = false
+
+            localStorage.setItem('a', JSON.stringify(getDt))
+
+            toast("☕ Logout successful.", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                pauseOnHover: false,
+                closeOnClick: true,
+                theme: 'dark',
+                transition: Bounce,
+            });
+
+            navigate('/')
+        }
+
+    }
+
     return (
         <div className={navbarColor ? "fixed shadow-sm w-full bg-white bg-opacity-60 shadow-md z-20" : "fixed w-full bg-white shadow-sm z-20"}>
             <div className='flex justify-between items-center py-5 px-8'>
@@ -159,7 +183,7 @@ const Navbar = () => {
                         style='pl-3 text-black text-sm md:text-base font-bold tracking-wider'
                     />
                 </div>
-                <div className='hidden md:flex md:gap-4'>
+                <div className='hidden md:flex md:gap-7'>
                     <Text
                         text='Home'
                         style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
@@ -170,35 +194,101 @@ const Navbar = () => {
                         style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
                         onclick={() => navigate('/product')}
                     />
-                    <Text
-                        text='Your Cart'
-                        style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
-                        onclick={() => navigate('/cart')}
-                    />
+                    <div className='flex gap-2'>
+                        <Text
+                            text='Your Cart'
+                            style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
+                            onclick={() => {
+                                if (!getDt || getDt.is_active != true) {
+                                    toast.error('You need to log in first.', {
+                                        position: "top-right",
+                                        autoClose: 2000,
+                                        hideProgressBar: false,
+                                        pauseOnHover: false,
+                                        closeOnClick: true,
+                                        theme: 'dark',
+                                        transition: Bounce
+                                    })
+                                } else {
+                                    navigate('/cart')
+                                }
+                            }}
+                        />
+                        {getDtOrder && getDtOrder.length != 0 ? (
+                            <div className="w-6 h-6 text-xs flex items-center justify-center text-white bg-[#362115] rounded-full">{getDtOrder.length}</div>
+                        ) : ''}
+                    </div>
                     <Text
                         text='History'
                         style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
-                        onclick={() => navigate('/history')}
+                        onclick={() => {
+                            if (!getDt || getDt.is_active != true) {
+                                toast.error('You need to log in first.', {
+                                    position: "top-right",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    pauseOnHover: false,
+                                    closeOnClick: true,
+                                    theme: 'dark',
+                                    transition: Bounce
+                                })
+                            } else {
+                                navigate('/history')
+                            }
+                        }}
                     />
                 </div>
                 <div className='hidden md:flex md:gap-2'>
-                    <div className='bg-white shadow-md flex items-center justify-center shadow-gray-400 rounded-full h-8 w-8 cursor-pointer'>
-                        <img src={usericon} className='h-7' alt="" />
-                    </div>
-                    <ButtonBrown info='Log In' onclick={() => navigate("/login")} />
-                    <ButtonYellow info='Sign Up' onclick={() => navigate("/signup")} />
+                    {getDt && getDt.is_active == true ? <ButtonBrown info='Log Out' onclick={logoutBtn} /> : (<>
+                        <ButtonBrown info='Log In' onclick={() => navigate("/login")} />
+                        <ButtonYellow info='Sign Up' onclick={() => navigate("/signup")} />
+                    </>)}
                 </div>
                 <a href="javascript:void(0);" onClick={HamMenuOnClick} className={navbarColor ? "text-[#362115] md:hidden cursor-pointer" : "md:hidden cursor-pointer"}>
                     <i className="fa fa-bars"></i>
                 </a>
             </div>
             <div className={menuNavMobile ? "z-20 fixed w-full flex flex-col bg-[#6A4029] bg-opacity-95 text-white text-center" : "hidden"}>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/')} >Home</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/product')}>Product</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/cart')}>Your Cart</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/history')}>History</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/login')}>Log In</a>
-                <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/signup')}>Sign Up</a>
+                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/')} >Home</a>
+                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/product')}>Product</a>
+                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => {
+                    if (getDt && getDt.is_active != true) {
+                        toast.error('You need to log in first.', {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            pauseOnHover: false,
+                            closeOnClick: true,
+                            theme: 'dark',
+                            transition: Bounce
+                        })
+                    } else {
+                        navigate('/cart')
+                    }
+                }}
+                >Your Cart {getDtOrder && getDtOrder.length != 0 ? (
+                    <span className="p-1 text-xs text-white bg-[#362115] rounded-full">{getDtOrder.length}</span>
+                ) : ''}</a>
+                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => {
+                    if (!getDt || getDt.is_active != true) {
+                        toast.error('You need to log in first.', {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            pauseOnHover: false,
+                            closeOnClick: true,
+                            theme: 'dark',
+                            transition: Bounce
+                        })
+                    } else {
+                        navigate('/history')
+                    }
+                }}
+                >History</a>
+                {getDt && getDt.is_active == true ? <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={logoutBtn}>Log Out</a> : (<>
+                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/login')}>Log In</a>
+                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/signup')}>Sign Up</a>
+                </>)}
             </div>
         </div>
     )
