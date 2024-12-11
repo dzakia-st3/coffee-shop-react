@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar, Footer } from '../Comp/mediumComp'
 import { Text, ButtonYellow } from '../Comp/smallComp'
 import image1 from '../image/hazelnut.png'
@@ -6,14 +6,59 @@ import image2 from '../image/chickenWings.png'
 import card from '../image/card.png'
 import transfer from '../image/bank.png'
 import cod from '../image/delivery.png'
+import { Bounce, toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
 
 const Cart = () => {
+    let getDt = localStorage.getItem('b')
+    let dtOrder = getDt ? JSON.parse(getDt) : null
+    let [loadDt, setLoadDt] = useState(false)
+    console.log('order', dtOrder.length)
+    let navigate = useNavigate()
+    let IDR = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0   // Tidak ada angka desimal
+    });
+
+    let subtotal = dtOrder.length == 0 ? 0 : dtOrder.reduce((acc: any, curr: any) => {
+        acc += ((curr.sum) * (Number((curr.price).replace(/\./g, ''))))
+
+        return acc
+    }, 0)
+
+    let removeClick = (idx: number) => {
+        if (window.confirm('Delete item ?')) {
+            let newDt = dtOrder.filter((key: any, idxItem: any) => idxItem != idx)
+            localStorage.setItem('b', JSON.stringify(newDt))
+            setLoadDt(true)
+        }
+    }
+
+    useEffect(() => {
+        setLoadDt(false)
+    }, [loadDt])
+
+    if (!dtOrder || dtOrder.length == 0) {
+        toast.warn('Oops, Your Cart is empty.', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            pauseOnHover: false,
+            closeOnClick: true,
+            theme: 'dark',
+            transition: Bounce,
+        })
+
+        navigate('/product')
+    }
+
     return (
         <div>
             <Navbar />
             <div className="bg-[url('./image/cart.png')] bg-cover">
                 <div className='bg-black bg-opacity-35 pt-20 md:pt-28 px-7 flex flex-col justify-center md:flex-row md:gap-14'>
-                    <div>
+                    <div className='md:pb-8'>
                         <Text
                             text='Checkout Your Item Now!'
                             style='text-white font-bold tracking-wide text-2xl pb-4 md:pb-7'
@@ -24,52 +69,41 @@ const Cart = () => {
                                 style='text-[#362115] font-bold tracking-wide text-xl pb-4'
                             />
                             <div className='py-5 flex flex-col gap-4 w-full'>
-                                <div className='flex items-center justify-between'>
-                                    <div className='flex gap-3 items-center w-2/3'>
-                                        <img src={image1} className='w-1/3 rounded-md' alt="image1" />
-                                        <div>
-                                            <Text
-                                                text='Hazelnut Latte'
-                                                style='text-sm'
-                                            />
-                                            <Text
-                                                text='x 1'
-                                                style='text-sm'
-                                            />
-                                            <Text
-                                                text='Reguler'
-                                                style='text-sm'
-                                            />
+                                {dtOrder.length != 0 ? dtOrder.map((item: any, idx: any) => {
+                                    return (
+                                        <div className='flex items-center justify-between'>
+                                            <div className='flex gap-3 items-center w-2/3'>
+                                                <img src={require(`../image/${item.product_image}`)} className='w-1/3 rounded-md' alt="image1" />
+                                                <div>
+                                                    <Text
+                                                        text={item.product_name}
+                                                        style='text-xs'
+                                                    />
+                                                    <Text
+                                                        text={`x ${item.sum}`}
+                                                        style='text-xs'
+                                                    />
+                                                    <Text
+                                                        text={item.size}
+                                                        style='text-xs'
+                                                    />
+                                                    <Text
+                                                        text='Edit'
+                                                        style='pt-1 text-xs underline font-light cursor-pointer'
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className='text-right'>
+                                                <Text
+                                                    text={`${IDR.format((item.sum) * (Number((item.price).replace(/\./g, ''))))}`}
+                                                    style='text-sm font-semibold'
+                                                />
+                                                <a className='pt-5 text-xs underline font-light cursor-pointer' onClick={() => removeClick(idx)}>Remove</a>
+                                            </div>
+
                                         </div>
-                                    </div>
-                                    <Text
-                                        text='IDR 20.0000'
-                                        style='text-sm font-semibold'
-                                    />
-                                </div>
-                                <div className='flex items-center justify-between'>
-                                    <div className='flex gap-3 items-center w-2/3'>
-                                        <img src={image2} className='w-1/3 rounded-md' alt="image1" />
-                                        <div>
-                                            <Text
-                                                text='Chicken Wings'
-                                                style='text-sm'
-                                            />
-                                            <Text
-                                                text='x 2'
-                                                style='text-sm'
-                                            />
-                                            <Text
-                                                text='Reguler'
-                                                style='text-sm'
-                                            />
-                                        </div>
-                                    </div>
-                                    <Text
-                                        text='IDR 60.0000'
-                                        style='text-sm font-semibold'
-                                    />
-                                </div>
+                                    )
+                                }) : ''}
                             </div>
                             <hr className='w-full pb-2' />
                             <div className='flex w-full justify-between p-2'>
@@ -78,7 +112,7 @@ const Cart = () => {
                                     style='text-sm'
                                 />
                                 <Text
-                                    text='IDR 80.000'
+                                    text={`${dtOrder.length == 0 ? 0 : IDR.format(subtotal)}`}
                                     style='text-sm'
                                 />
                             </div>
@@ -88,7 +122,7 @@ const Cart = () => {
                                     style='text-sm'
                                 />
                                 <Text
-                                    text='IDR 10.000'
+                                    text={IDR.format(10000)}
                                     style='text-sm'
                                 />
                             </div>
@@ -98,7 +132,7 @@ const Cart = () => {
                                     style='text-sm'
                                 />
                                 <Text
-                                    text='IDR 10.000'
+                                    text={IDR.format(10000)}
                                     style='text-sm'
                                 />
                             </div>
@@ -108,7 +142,7 @@ const Cart = () => {
                                     style='text-[#362115] font-bold text-xl'
                                 />
                                 <Text
-                                    text='IDR 100.000'
+                                    text={`IDR ${IDR.format(subtotal + 20000)}`}
                                     style='text-[#362115] font-bold text-xl'
                                 />
                             </div>

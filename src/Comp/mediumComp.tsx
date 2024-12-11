@@ -133,6 +133,11 @@ const Navbar = () => {
 
     let dtOrder = localStorage.getItem('b')
     let getDtOrder = dtOrder ? JSON.parse(dtOrder) : null
+    let countCart = getDtOrder ? getDtOrder.reduce((acc: any, curr: any) => {
+        acc += Number(curr.sum)
+
+        return acc
+    }, 0) : ''
 
     const changeBackground = () => {
         if (window.scrollY > 0) {
@@ -215,7 +220,7 @@ const Navbar = () => {
                             }}
                         />
                         {getDtOrder && getDtOrder.length != 0 ? (
-                            <div className="w-6 h-6 text-xs flex items-center justify-center text-white bg-[#362115] rounded-full">{getDtOrder.length}</div>
+                            <div className="w-6 h-6 text-xs flex items-center justify-center text-white bg-[#362115] rounded-full">{countCart}</div>
                         ) : ''}
                     </div>
                     <Text
@@ -248,47 +253,49 @@ const Navbar = () => {
                     <i className="fa fa-bars"></i>
                 </a>
             </div>
-            <div className={menuNavMobile ? "z-20 fixed w-full flex flex-col bg-[#6A4029] bg-opacity-95 text-white text-center" : "hidden"}>
-                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/')} >Home</a>
-                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/product')}>Product</a>
-                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => {
-                    if (getDt && getDt.is_active != true) {
-                        toast.error('You need to log in first.', {
-                            position: "top-right",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            pauseOnHover: false,
-                            closeOnClick: true,
-                            theme: 'dark',
-                            transition: Bounce
-                        })
-                    } else {
-                        navigate('/cart')
-                    }
-                }}
-                >Your Cart {getDtOrder && getDtOrder.length != 0 ? (
-                    <span className="p-1 text-xs text-white bg-[#362115] rounded-full">{getDtOrder.length}</span>
-                ) : ''}</a>
-                <a className="p-3 hover:underline border-b-2 border-white" onClick={() => {
-                    if (!getDt || getDt.is_active != true) {
-                        toast.error('You need to log in first.', {
-                            position: "top-right",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            pauseOnHover: false,
-                            closeOnClick: true,
-                            theme: 'dark',
-                            transition: Bounce
-                        })
-                    } else {
-                        navigate('/history')
-                    }
-                }}
-                >History</a>
-                {getDt && getDt.is_active == true ? <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={logoutBtn}>Log Out</a> : (<>
-                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/login')}>Log In</a>
-                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/signup')}>Sign Up</a>
-                </>)}
+            <div className='md:hidden'>
+                <div className={menuNavMobile ? "z-20 fixed w-full flex flex-col bg-[#6A4029] bg-opacity-95 text-white text-center" : "hidden"}>
+                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/')} >Home</a>
+                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/product')}>Product</a>
+                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => {
+                        if (getDt && getDt.is_active != true) {
+                            toast.error('You need to log in first.', {
+                                position: "top-right",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                pauseOnHover: false,
+                                closeOnClick: true,
+                                theme: 'dark',
+                                transition: Bounce
+                            })
+                        } else {
+                            navigate('/cart')
+                        }
+                    }}
+                    >Your Cart {getDtOrder && getDtOrder.length != 0 ? (
+                        <span className="p-1 text-xs text-white bg-[#362115] rounded-full">{countCart}</span>
+                    ) : ''}</a>
+                    <a className="p-3 hover:underline border-b-2 border-white" onClick={() => {
+                        if (!getDt || getDt.is_active != true) {
+                            toast.error('You need to log in first.', {
+                                position: "top-right",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                pauseOnHover: false,
+                                closeOnClick: true,
+                                theme: 'dark',
+                                transition: Bounce
+                            })
+                        } else {
+                            navigate('/history')
+                        }
+                    }}
+                    >History</a>
+                    {getDt && getDt.is_active == true ? <a href="#" className="p-3 hover:underline border-b-2 border-white" onClick={logoutBtn}>Log Out</a> : (<>
+                        <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/login')}>Log In</a>
+                        <a className="p-3 hover:underline border-b-2 border-white" onClick={() => navigate('/signup')}>Sign Up</a>
+                    </>)}
+                </div>
             </div>
         </div>
     )

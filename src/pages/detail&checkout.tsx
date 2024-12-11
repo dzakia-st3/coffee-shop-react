@@ -3,6 +3,7 @@ import { Navbar, Footer } from '../Comp/mediumComp'
 import { Text, ButtonBrown, ButtonYellow } from '../Comp/smallComp'
 import { useParams } from 'react-router'
 import dataProduct from '../data/product.json'
+import { Bounce, toast } from 'react-toastify'
 
 const DetailAndCheckout = () => {
     const [count, setCount] = useState(0)
@@ -13,45 +14,83 @@ const DetailAndCheckout = () => {
     let parseDt = getDtOrder ? JSON.parse(getDtOrder) : null
 
     const addCartBtn = () => {
-        let data = parseDt && parseDt.length != 0 ? parseDt.reduce((acc: any, curr: any) => {
-            let findDt = parseDt.find((e: any) => e.product_id == curr.product_id && e.size == curr.size)
+        if (dtItem[0].category_id == 3) {
+            console.log(1)
+            setDataSize('Regular')
+        }
 
-            if (findDt) {
-                acc.push(findDt)
-            }
+        if (dtItem[0].category_id != 3 && dataSize == '0') {
+            console.log('2')
+            toast.error('Please select the size of your drink.', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                pauseOnHover: false,
+                closeOnClick: true,
+                theme: 'dark',
+                transition: Bounce,
+            })
+        } else if (count == 0) {
+            console.log('3')
+            toast.error('Cannot add zero quantity to the cart.', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                pauseOnHover: false,
+                closeOnClick: true,
+                theme: 'dark',
+                transition: Bounce,
+            })
+        } else if (count != 0) {
+            let data = parseDt && parseDt.length != 0 ? parseDt.reduce((acc: any, curr: any, i: number) => {
+                let item = i > 0 && acc.find((e: any) => e.product_id == curr.product_id && e.size == curr.size)
 
-            if (findDt.product_id == Number(id) && findDt.size == dataSize) {
-                findDt.sum = findDt.sum + count
-            }
+                if (!item) {
+                    item = {
+                        category_id: curr.category_id,
+                        price: curr.price,
+                        product_details: curr.product_details,
+                        product_id: curr.product_id,
+                        product_image: curr.product_image,
+                        product_name: curr.product_name,
+                        size: curr.size,
+                        sum: curr.product_id == Number(id) && curr.size == dataSize ? (curr.sum + count) : curr.sum
+                    }
+                    acc.push(item)
+                }
 
-            let findNewItem = parseDt.find((e: any) => e.product_id == Number(id) && e.size == dataSize)
+                if (acc.length == parseDt.length) {
+                    let findNewItem = parseDt.find((e: any) => e.product_id == Number(id) && e.size == dataSize)
 
-            if (!findNewItem) {
-                acc.push({
-                    ...dtItem[0],
-                    size: dataSize,
-                    sum: count
-                })
-            }
+                    if (!findNewItem) {
+                        acc.push({
+                            ...dtItem[0],
+                            size: dtItem[0].category_id == 3 ? 'Regular' : dataSize,
+                            sum: count
+                        })
+                    }
 
-            let findIdItem = acc.find((e: any) => e.product_id == Number(id))
+                    let findIdItem = acc.find((e: any) => e.product_id == Number(id))
 
-            if (!findIdItem) {
-                acc.push({
-                    ...dtItem[0],
-                    size: dataSize,
-                    sum: count
-                })
-            }
+                    if (!findIdItem) {
+                        acc.push({
+                            ...dtItem[0],
+                            size: dtItem[0].category_id == 3 ? 'Regular' : dataSize,
+                            sum: count
+                        })
+                    }
+                }
 
-            return acc
-        }, []) : [{
-            ...dtItem[0],
-            size: dataSize,
-            sum: count
-        }]
+                return acc
+            }, []) : [{
+                ...dtItem[0],
+                size: dtItem[0].category_id == 3 ? 'Regular' : dataSize,
+                sum: count
+            }]
 
-        localStorage.setItem('b', JSON.stringify(data))
+            localStorage.setItem('b', JSON.stringify(data))
+        }
+
 
     }
 

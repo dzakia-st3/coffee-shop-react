@@ -26,9 +26,12 @@ import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
+import { useNavigate } from 'react-router'
 
 
 const Home = () => {
+    const navigate = useNavigate()
+
     return (
         <>
             <Navbar />
@@ -44,7 +47,7 @@ const Home = () => {
                             text='We provide high quality beans, good taste, and healthy meals made by love just for you. Start your day with us for bigger smile!'
                             style='text-white text-base pb-5'
                         />
-                        <ButtonYellow info='Get Started' />
+                        <ButtonYellow info='Get Started' onclick={() => navigate('/product')} />
                     </div>
                 </div>
                 {/* Section 2 */}
@@ -185,7 +188,7 @@ const Home = () => {
                                     text='IDR 25.000'
                                     style='pb-5  font-bold text-xl text-black'
                                 />
-                                <ButtonBrownBorder info='Select' />
+                                <ButtonBrownBorder info='Select' onclick={() => navigate('/order/11')} />
                             </div>
                         </div>
                         <div className='flex flex-col items-center'>
@@ -236,7 +239,7 @@ const Home = () => {
                                     text='IDR 30.000'
                                     style='pb-5  font-bold text-xl text-black'
                                 />
-                                <ButtonBrownBorder info='Select' />
+                                <ButtonBrownBorder info='Select' onclick={() => navigate('/order/13')} />
                             </div>
                         </div>
                         <div className='flex flex-col items-center'>
@@ -294,7 +297,7 @@ const Home = () => {
                                     text='IDR 40.000'
                                     style='pb-5  font-bold text-xl text-black'
                                 />
-                                <ButtonBrownBorder info='Select' />
+                                <ButtonBrownBorder info='Select' onclick={() => navigate('/order/21')} />
                             </div>
                         </div>
                     </div>
@@ -360,7 +363,7 @@ const Home = () => {
                                         text='IDR 25.000'
                                         style='pb-5  font-bold text-xl text-black'
                                     />
-                                    <ButtonBrownBorder info='Select' />
+                                    <ButtonBrownBorder info='Select' onclick={() => navigate('/order/11')} />
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -413,7 +416,7 @@ const Home = () => {
                                         text='IDR 30.000'
                                         style='pb-5  font-bold text-xl text-black'
                                     />
-                                    <ButtonBrownBorder info='Select' />
+                                    <ButtonBrownBorder info='Select' onclick={() => navigate('/order/13')} />
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -473,7 +476,7 @@ const Home = () => {
                                         text='IDR 40.000'
                                         style='pb-5  font-bold text-xl text-black'
                                     />
-                                    <ButtonBrownBorder info='Select' />
+                                    <ButtonBrownBorder info='Select' onclick={() => navigate('/order/21')} />
                                 </div>
                             </div>
                         </SwiperSlide>
