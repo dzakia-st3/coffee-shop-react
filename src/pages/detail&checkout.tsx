@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar, Footer } from '../Comp/mediumComp'
 import { Text, ButtonBrown, ButtonYellow } from '../Comp/smallComp'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import dataProduct from '../data/product.json'
 import { Bounce, toast } from 'react-toastify'
 
@@ -10,17 +10,21 @@ const DetailAndCheckout = () => {
     const { id } = useParams()
     const dtItem = dataProduct.data.filter((e) => e.product_id == Number(id))
     const [dataSize, setDataSize] = useState('0')
+    const [loadData, setLoadData] = useState(false)
     let getDtOrder = localStorage.getItem('b')
     let parseDt = getDtOrder ? JSON.parse(getDtOrder) : null
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        setLoadData(false)
+    }, [loadData])
 
     const addCartBtn = () => {
         if (dtItem[0].category_id == 3) {
-            console.log(1)
             setDataSize('Regular')
         }
 
         if (dtItem[0].category_id != 3 && dataSize == '0') {
-            console.log('2')
             toast.error('Please select the size of your drink.', {
                 position: "top-right",
                 autoClose: 2000,
@@ -31,7 +35,6 @@ const DetailAndCheckout = () => {
                 transition: Bounce,
             })
         } else if (count == 0) {
-            console.log('3')
             toast.error('Cannot add zero quantity to the cart.', {
                 position: "top-right",
                 autoClose: 2000,
@@ -89,9 +92,26 @@ const DetailAndCheckout = () => {
             }]
 
             localStorage.setItem('b', JSON.stringify(data))
+            setLoadData(true)
         }
 
 
+    }
+
+    const checkoutBtn = () => {
+        if (!getDtOrder || parseDt.length == 0) {
+            toast.warn("Can't checkout. Cart is empty.", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                pauseOnHover: false,
+                closeOnClick: true,
+                theme: 'dark',
+                transition: Bounce,
+            })
+        } else {
+            navigate('/cart')
+        }
     }
 
     return (
@@ -141,7 +161,7 @@ const DetailAndCheckout = () => {
                         </div>
                         <ButtonYellow info='Add to Cart' style='w-full py-2' onclick={addCartBtn} />
                     </div>
-                    <ButtonBrown info='Checkout' style='w-full py-2' />
+                    <ButtonBrown info='Checkout' style='w-full py-2' onclick={checkoutBtn} />
                 </div>
             </div>
             <Footer />
