@@ -38,7 +38,7 @@ const Home = () => {
             <div className='pt-14'>
                 {/* Section 1 */}
                 <div className="bg-[url('./image/coverHero1.png')] bg-cover md:h-96">
-                    <div className='w-full h-full p-8 md:bg-transparent md:w-1/2 bg-black bg-opacity-60 md:place-content-center'>
+                    <div className='w-full h-full p-8 md:bg-transparent md:w-1/2 bg-black bg-opacity-60 md:place-content-center section-1-1'>
                         <Text
                             text='Start Your Day with Coffee and Good Meals'
                             style='text-white text-xl font-bold tracking-wide pb-5'
@@ -93,7 +93,7 @@ const Home = () => {
                     </div>
                 </div>
                 {/* Section 3 */}
-                <div className="flex items-center justify-center shadow-md bg-cover bg-[url('./image/coverHero2.png')] md:bg-[length:0px] md:-top-14 md:relative md:px-16 md:gap-6">
+                <div className="flex items-center justify-center shadow-md bg-cover bg-[url('./image/coverHero2.png')] md:bg-[length:0px] md:-top-14 md:relative md:px-16 md:gap-6 section-3">
                     <img src={banner2} className='hidden md:flex' alt="" />
                     <div className="flex flex-col gap-5 px-7 pb-8 bg-white bg-opacity-80 md:pb-0">
                         <Text
@@ -135,7 +135,7 @@ const Home = () => {
                     </div>
                 </div>
                 {/* Section 4 */}
-                <div className='shadow-md py-7'>
+                <div className='shadow-md py-7 section-4'>
                     <div className='px-5 flex flex-col gap-3 pb-10 md:pb-12'>
                         <Text
                             text="Here is People's Favorite"
@@ -483,7 +483,7 @@ const Home = () => {
                     </Swiper>
                 </div>
                 {/* Section 5 */}
-                <div className='px-5 flex flex-col gap-3 py-8 shadow-md'>
+                <div className='px-5 flex flex-col gap-3 py-8 shadow-md section-5'>
                     <Text
                         text='Visit Our Store in the'
                         style='font-bold tracking-wider text-xl text-center'
@@ -499,7 +499,7 @@ const Home = () => {
                     <img src={maps} className='pt-10' alt="maps" />
                 </div>
                 {/* Section 6 */}
-                <div className='py-8 md:pb-0 px-2 shadow-md'>
+                <div className='py-8 md:pb-0 px-2 shadow-md section-6'>
                     <Text
                         text='Our Partner'
                         style='font-bold tracking-wider text-xl text-center'
@@ -518,7 +518,7 @@ const Home = () => {
                     </div>
                 </div>
                 {/* Section 7 */}
-                <div className='px-5 py-8 flex flex-col shadow-md md:px-10'>
+                <div className='px-5 py-8 flex flex-col shadow-md md:px-10 section-7'>
                     <Text
                         text='Loved by Thousand of'
                         style='font-bold tracking-wider text-xl text-center'
@@ -761,7 +761,7 @@ const Home = () => {
                     </Swiper>
                 </div>
                 {/* Section 8 */}
-                <div className='p-8 flex flex-col items-center gap-5 md:flex-row md:justify-evenly md:px-20'>
+                <div className='p-8 flex flex-col items-center gap-5 md:flex-row md:justify-evenly md:px-20 section-8'>
                     <div className='flex flex-col items-center md:items-start gap-5'>
                         <Text
                             text='Check our promo today!'
