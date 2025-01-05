@@ -303,7 +303,7 @@ const Navbar = () => {
 
 const Footer = () => {
     return (
-        <div className='flex p-7 bg-[#F8F8F8] md:items-center md:justify-around'>
+        <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" className='flex p-7 bg-[#F8F8F8] md:items-center md:justify-around'>
             <div className='flex flex-col gap-4 pr-10 md:w-1/4'>
                 <div className='flex items-center'>
                     <img src={logo} className='h-5 w-auto md:h-7' alt="logo" />

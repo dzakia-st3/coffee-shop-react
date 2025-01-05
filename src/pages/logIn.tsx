@@ -30,6 +30,7 @@ const LogIn = () => {
 
             getDt.is_active = true
             localStorage.setItem('a', JSON.stringify(getDt))
+            navigate('/')
 
         } else if ((getDt && getDt.email != dt.email) || (getDt && atob(getDt.password) != dt.password)) {
             toast.error('Incorrect password or email!', {
