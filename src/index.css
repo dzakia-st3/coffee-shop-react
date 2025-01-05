@@ -41,41 +41,6 @@ code {
   background-color: #362115;
 }
 
-@keyframes from-bottom {
-  from {
-    transform: translateY(30px);
-  }
-  to {
-    transform: translateY(-50px);
-  }
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.section-1,
-.section-3,
-.section-4,
-.section-5,
-.section-6,
-.section-7,
-.section-8 {
-  animation: from-bottom ease-in 2s;
-  animation-timeline: view(y);
-}
-
 @media only screen and (min-width: 600px) {
   .menuSwiper {
     height: 80vh;
