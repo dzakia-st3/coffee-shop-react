@@ -38,7 +38,7 @@ const Home = () => {
             <div className='pt-14'>
                 {/* Section 1 */}
                 <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" className="bg-[url('./image/coverHero1.png')] bg-cover md:h-96">
-                    <div data-aos="fade-right" data-aos-duration="1500" data-aos-delay="200" className='w-full h-full p-8 md:bg-transparent md:w-1/2 bg-black bg-opacity-60 md:place-content-center section-1-1'>
+                    <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" className='w-full h-full p-8 md:bg-transparent md:w-1/2 bg-black bg-opacity-60 md:place-content-center section-1-1'>
                         <Text
                             text='Start Your Day with Coffee and Good Meals'
                             style='text-white text-xl font-bold tracking-wide pb-5'
@@ -94,8 +94,8 @@ const Home = () => {
                 </div>
                 {/* Section 3 */}
                 <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" className="flex items-center justify-center shadow-md bg-cover bg-[url('./image/coverHero2.png')] md:bg-[length:0px] md:-top-14 md:relative md:px-16 md:gap-6 section-3">
-                    <img data-aos="fade-right" data-aos-duration="1500" data-aos-delay="200" src={banner2} className='hidden md:flex' alt="" />
-                    <div data-aos="fade-left" data-aos-duration="1500" data-aos-delay="200" className="flex flex-col gap-5 px-7 pb-8 bg-white bg-opacity-80 md:pb-0">
+                    <img data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" src={banner2} className='hidden md:flex' alt="" />
+                    <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" className="flex flex-col gap-5 px-7 pb-8 bg-white bg-opacity-80 md:pb-0">
                         <Text
                             text='We Provide Good Coffee and Healthy Meals'
                             style='font-bold tracking-wider text-xl'
