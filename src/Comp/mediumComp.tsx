@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React, { useState } from 'react'
 import { ButtonBrown, ButtonYellow, Text } from './smallComp'
 import logo from '../image/coffee 1.png'
@@ -139,6 +140,9 @@ const Navbar = () => {
         return acc
     }, 0) : ''
 
+    let dtHistory = localStorage.getItem('c')
+    let getDtHistory = dtHistory && dtHistory.length !== 0 ? JSON.parse(dtHistory) : null
+
     const changeBackground = () => {
         if (window.scrollY > 0) {
             setNavbarColor(true)
@@ -150,7 +154,7 @@ const Navbar = () => {
     window.addEventListener('scroll', changeBackground)
 
     const HamMenuOnClick = () => {
-        if (menuNavMobile == true) {
+        if (menuNavMobile === true) {
             setMenuNavMobile(false)
         } else {
             setMenuNavMobile(true)
@@ -179,7 +183,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className={navbarColor ? "fixed shadow-sm w-full bg-white bg-opacity-60 shadow-md z-20" : "fixed w-full bg-white shadow-sm z-20"}>
+        <div className={navbarColor ? "fixed w-full bg-white bg-opacity-60 shadow-md z-20" : "fixed w-full bg-white shadow-sm z-20"}>
             <div className='flex justify-between items-center py-5 px-8'>
                 <div className='flex items-center cursor-pointer' onClick={() => navigate('/')}>
                     <img src={logo} className='h-7 w-auto' alt="logo" />
@@ -204,7 +208,7 @@ const Navbar = () => {
                             text='Your Cart'
                             style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
                             onclick={() => {
-                                if (!getDt || getDt.is_active != true) {
+                                if (!getDt || getDt.is_active !== true) {
                                     toast.error('You need to log in first.', {
                                         position: "top-right",
                                         autoClose: 2000,
@@ -214,12 +218,23 @@ const Navbar = () => {
                                         theme: 'dark',
                                         transition: Bounce
                                     })
+                                } else if (!getDtOrder || getDtOrder?.length === 0) {
+                                    toast.warn('Oops, Your cart is empty.', {
+                                        position: "top-right",
+                                        autoClose: 2000,
+                                        hideProgressBar: false,
+                                        pauseOnHover: false,
+                                        closeOnClick: true,
+                                        theme: 'dark',
+                                        transition: Bounce,
+                                    })
+                                    navigate('/product')
                                 } else {
                                     navigate('/cart')
                                 }
                             }}
                         />
-                        {getDtOrder && getDtOrder.length != 0 ? (
+                        {getDtOrder && getDtOrder.length !== 0 ? (
                             <div className="w-6 h-6 text-xs flex items-center justify-center text-white bg-[#362115] rounded-full">{countCart}</div>
                         ) : ''}
                     </div>
@@ -227,7 +242,7 @@ const Navbar = () => {
                         text='History'
                         style='text-gray-500 hover:text-[#362115] text-base hover:underline cursor-pointer'
                         onclick={() => {
-                            if (!getDt || getDt.is_active != true) {
+                            if (!getDt || getDt.is_active !== true) {
                                 toast.error('You need to log in first.', {
                                     position: "top-right",
                                     autoClose: 2000,
@@ -237,6 +252,17 @@ const Navbar = () => {
                                     theme: 'dark',
                                     transition: Bounce
                                 })
+                            } else if (!getDtHistory) {
+                                toast.warn('Oops, There is no order history available.', {
+                                    position: "top-right",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    pauseOnHover: false,
+                                    closeOnClick: true,
+                                    theme: 'dark',
+                                    transition: Bounce,
+                                })
+                                navigate('/product')
                             } else {
                                 navigate('/history')
                             }
@@ -244,7 +270,7 @@ const Navbar = () => {
                     />
                 </div>
                 <div className='hidden md:flex md:gap-2'>
-                    {getDt && getDt.is_active == true ? <ButtonBrown info='Log Out' onclick={logoutBtn} /> : (<>
+                    {getDt && getDt.is_active === true ? <ButtonBrown info='Log Out' onclick={logoutBtn} /> : (<>
                         <ButtonBrown info='Log In' onclick={() => navigate("/login")} />
                         <ButtonYellow info='Sign Up' onclick={() => navigate("/signup")} />
                     </>)}
@@ -268,6 +294,17 @@ const Navbar = () => {
                                 theme: 'dark',
                                 transition: Bounce
                             })
+                        } else if (!getDtOrder || getDtOrder.length === 0) {
+                            toast.warn('Oops, Your Cart is empty.', {
+                                position: "top-right",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                pauseOnHover: false,
+                                closeOnClick: true,
+                                theme: 'dark',
+                                transition: Bounce,
+                            })
+                            navigate('/product')
                         } else {
                             navigate('/cart')
                         }
@@ -286,6 +323,17 @@ const Navbar = () => {
                                 theme: 'dark',
                                 transition: Bounce
                             })
+                        } else if (!getDtHistory) {
+                            toast.warn('Oops, There is no order history available.', {
+                                position: "top-right",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                pauseOnHover: false,
+                                closeOnClick: true,
+                                theme: 'dark',
+                                transition: Bounce,
+                            })
+                            navigate('/product')
                         } else {
                             navigate('/history')
                         }

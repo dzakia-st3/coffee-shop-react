@@ -41,8 +41,11 @@ const Cart = () => {
         maximumFractionDigits: 0
     });
 
-    if (!dtOrder || dtOrder.length == 0) {
+    if (dtOrder?.length === 0) {
+        navigate('/product')
+
         toast.warn('Oops, Your Cart is empty.', {
+            toastId: 'test',
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -51,8 +54,6 @@ const Cart = () => {
             theme: 'dark',
             transition: Bounce,
         })
-
-        navigate('/product')
     }
 
     let subtotal = dtOrder?.length == 0 ? 0 : dtOrder?.reduce((acc: any, curr: any) => {

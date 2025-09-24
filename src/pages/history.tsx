@@ -3,10 +3,12 @@ import { Navbar, Footer } from '../Comp/mediumComp'
 import { Text } from '../Comp/smallComp'
 import sample from '../image/veggie.png'
 import { Bounce, toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
 
 const History = () => {
     let dtLocal = localStorage.getItem('c')
     let getDt = dtLocal ? JSON.parse(dtLocal) : null
+    let navigate = useNavigate()
 
     let reFormatDt = getDt && getDt.length != 0 ? getDt.reduce((acc: any, curr: any, i: number) => {
         let findDt = i > 0 && acc.find((e: any) => e.dateOrder == curr.dateOrder.slice(3))
@@ -37,6 +39,7 @@ const History = () => {
             theme: 'dark',
             transition: Bounce,
         })
+        navigate('/product')
     }
 
     return (
