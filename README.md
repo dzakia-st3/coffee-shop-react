@@ -16,11 +16,11 @@ https://coffee-shop-react-typescript.netlify.app/
 
 ## ✨ Features
 
-* User authentication (login & register)
-* Browse menu items
-* Add to cart & manage orders
-* CRUD functionality
-* Data stored using local storage
+- User authentication (login & register)
+- Browse menu items
+- Add to cart & manage orders
+- Create, view, update, and delete orders
+- Data stored using local storage
 
 ## 📌 Notes
 
